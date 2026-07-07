@@ -1,0 +1,343 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>adrianabella.dev — under construction</title>
+        <style>
+            :root {
+                --black: #000000;
+                --peach: #ff9966;
+                --salmon: #cc6666;
+                --lav: #cc99cc;
+                --blue: #9999cc;
+                --gold: #ffcc66;
+                --text: #ff9900;
+                --u: clamp(3.2px, 0.85vw, 9px);
+                --gap: calc(var(--u) * 0.75);
+                --bar-h: calc(var(--u) * 3.2);
+                --side-w: calc(var(--u) * 18);
+                --frame-h: calc(var(--u) * 7);
+                --elbow-r: calc(var(--u) * 8);
+            }
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            html,
+            body {
+                height: 100%;
+            }
+            body {
+                background: var(--black);
+                color: var(--text);
+                font-family:
+                    "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
+                min-height: 100dvh;
+                display: flex;
+                align-items: stretch;
+                padding: calc(var(--u) * 1.5);
+                text-transform: uppercase;
+                letter-spacing: 0.04em;
+            }
+            .console {
+                flex: 1;
+                width: 100%;
+                display: grid;
+                grid-template-columns: var(--side-w) 1fr;
+                grid-template-rows: var(--frame-h) 1fr var(--frame-h);
+                gap: var(--gap);
+            }
+            .elbow {
+                position: relative;
+                background: var(--peach);
+            }
+            .elbow.top {
+                border-radius: 0 0 0 var(--elbow-r);
+                grid-column: 1;
+                grid-row: 1;
+            }
+            .elbow.bottom {
+                background: var(--salmon);
+                border-radius: var(--elbow-r) 0 0 0;
+                grid-column: 1;
+                grid-row: 3;
+            }
+            .elbow::before {
+                content: "";
+                position: absolute;
+                right: calc(var(--gap) * -1 - 1px);
+                width: calc(var(--elbow-r) * 0.9);
+                height: calc(var(--frame-h) - var(--bar-h));
+                background: var(--black);
+            }
+            .elbow.top::before {
+                top: 0;
+                border-radius: 0 0 0 calc(var(--elbow-r) * 0.55);
+                box-shadow: calc(var(--gap) + 1px) 0 0 var(--black);
+            }
+            .elbow.bottom::before {
+                bottom: 0;
+                border-radius: calc(var(--elbow-r) * 0.55) 0 0 0;
+                box-shadow: calc(var(--gap) + 1px) 0 0 var(--black);
+            }
+            .bar {
+                display: flex;
+                gap: var(--gap);
+            }
+            .bar.top {
+                grid-column: 2;
+                grid-row: 1;
+                align-items: flex-end;
+            }
+            .bar.bottom {
+                grid-column: 2;
+                grid-row: 3;
+                align-items: flex-start;
+            }
+            .bar .seg {
+                height: var(--bar-h);
+                display: flex;
+                align-items: center;
+                justify-content: flex-end;
+                padding: 0 calc(var(--u) * 1.2);
+                color: var(--black);
+                font-weight: 700;
+                font-size: calc(var(--u) * 1.55);
+                white-space: nowrap;
+                overflow: hidden;
+                min-width: 0;
+            }
+            .seg.f1 {
+                flex: 2 1 0;
+                background: var(--gold);
+            }
+            .seg.f2 {
+                flex: 1 1 0;
+                background: var(--lav);
+            }
+            .seg.f3 {
+                flex: 3 1 0;
+                background: var(--peach);
+            }
+            .seg.cap {
+                flex: 0 0 calc(var(--u) * 6);
+                border-radius: 0 calc(var(--bar-h)) calc(var(--bar-h)) 0;
+                background: var(--salmon);
+            }
+            .side {
+                grid-column: 1;
+                grid-row: 2;
+                display: flex;
+                flex-direction: column;
+                gap: var(--gap);
+            }
+            .side .block {
+                display: flex;
+                align-items: flex-end;
+                justify-content: flex-end;
+                padding: calc(var(--u) * 0.6) calc(var(--u) * 1.1);
+                color: var(--black);
+                font-weight: 700;
+                font-size: calc(var(--u) * 1.55);
+                min-height: 0;
+                overflow: hidden;
+            }
+            .side .b1 {
+                background: var(--lav);
+                flex: 1.6;
+            }
+            .side .b2 {
+                background: var(--blue);
+                flex: 1;
+            }
+            .side .b3 {
+                background: var(--gold);
+                flex: 0.8;
+            }
+            .side .b4 {
+                background: var(--peach);
+                flex: 1.2;
+            }
+            .screen {
+                grid-column: 2;
+                grid-row: 2;
+                padding: calc(var(--u) * 4) calc(var(--u) * 5);
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                overflow: hidden;
+                min-width: 0;
+            }
+            .readout {
+                font-size: calc(var(--u) * 1.6);
+                letter-spacing: 0.3em;
+                color: var(--lav);
+                margin-bottom: calc(var(--u) * 2);
+                display: flex;
+                flex-wrap: wrap;
+                gap: calc(var(--u) * 0.8) calc(var(--u) * 3.5);
+            }
+            .readout .blink {
+                animation: blink 1.2s steps(1) infinite;
+                color: var(--gold);
+            }
+            @keyframes blink {
+                50% {
+                    opacity: 0;
+                }
+            }
+            h1 {
+                font-size: calc(var(--u) * 7.2);
+                font-weight: 700;
+                letter-spacing: 0.06em;
+                line-height: 1.08;
+                color: var(--peach);
+                overflow-wrap: break-word;
+            }
+            h1 em {
+                font-style: normal;
+                color: var(--gold);
+            }
+            .divider {
+                height: calc(var(--u) * 0.8);
+                background: var(--salmon);
+                border-radius: 99px;
+                margin: calc(var(--u) * 2.6) 0;
+                width: min(100%, calc(var(--u) * 90));
+            }
+            p.sub {
+                font-size: calc(var(--u) * 2.1);
+                line-height: 1.9;
+                color: var(--blue);
+                max-width: 60ch;
+                letter-spacing: 0.12em;
+            }
+            .num {
+                margin-top: calc(var(--u) * 2.8);
+                font-size: calc(var(--u) * 1.5);
+                letter-spacing: 0.25em;
+                color: #7a7aa6;
+                display: flex;
+                flex-wrap: wrap;
+                gap: calc(var(--u) * 0.6) calc(var(--u) * 4);
+            }
+            .links {
+                margin-top: calc(var(--u) * 3.4);
+                display: flex;
+                flex-wrap: wrap;
+                gap: calc(var(--u) * 1.2);
+            }
+            .links a {
+                text-decoration: none;
+                color: var(--black);
+                background: var(--peach);
+                font-weight: 700;
+                font-size: calc(var(--u) * 1.65);
+                letter-spacing: 0.18em;
+                padding: calc(var(--u) * 1.5) calc(var(--u) * 3.2);
+                border-radius: 999px;
+                transition:
+                    filter 0.15s,
+                    transform 0.15s;
+            }
+            .links a:nth-child(2) {
+                background: var(--lav);
+            }
+            .links a:nth-child(3) {
+                background: var(--blue);
+            }
+            .links a:hover,
+            .links a:focus-visible {
+                filter: brightness(1.25);
+                transform: scale(1.04);
+            }
+            a:focus-visible {
+                outline: 2px solid var(--gold);
+                outline-offset: 3px;
+            }
+            @media (max-width: 480px) {
+                p.sub {
+                    font-size: max(calc(var(--u) * 2.1), 0.78rem);
+                }
+                .links a {
+                    font-size: max(calc(var(--u) * 1.65), 0.68rem);
+                    padding: max(calc(var(--u) * 1.5), 0.6rem)
+                        max(calc(var(--u) * 3.2), 1.2rem);
+                }
+                .readout {
+                    font-size: max(calc(var(--u) * 1.6), 0.6rem);
+                }
+                .num {
+                    font-size: max(calc(var(--u) * 1.5), 0.56rem);
+                }
+                h1 {
+                    font-size: max(calc(var(--u) * 7.2), 1.55rem);
+                }
+                .bar .seg,
+                .side .block {
+                    font-size: max(calc(var(--u) * 1.55), 0.5rem);
+                }
+            }
+            @media (prefers-reduced-motion: reduce) {
+                .readout .blink {
+                    animation: none;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <div class="console">
+            <div class="elbow top" aria-hidden="true"></div>
+            <div class="bar top" aria-hidden="true">
+                <div class="seg f1">SITE OPS</div>
+                <div class="seg f2">47-A</div>
+                <div class="seg f3">CONSTRUCTION PROTOCOL</div>
+                <div class="seg cap"></div>
+            </div>
+
+            <div class="side" aria-hidden="true">
+                <div class="block b1">01-4077</div>
+                <div class="block b2">02-1701</div>
+                <div class="block b3">03-2364</div>
+                <div class="block b4">04-AAA</div>
+            </div>
+
+            <main class="screen">
+                <div class="readout">
+                    <span>Main computer</span>
+                    <span>Deck 01</span>
+                    <span class="blink">● Status: building</span>
+                </div>
+                <h1>
+                    Adrian Abella Acosta
+                    <br />
+                    <em>Site under construction</em>
+                </h1>
+                <div class="divider" aria-hidden="true"></div>
+                <p class="sub">Working… Full site coming at some point.</p>
+                <div class="num" aria-hidden="true">
+                    <span>ADRIANABELLA.DEV</span>
+                    <span>TRIPLEADEV.TECH</span>
+                    <span>TRIPLEADEV.ME</span>
+                </div>
+                <div class="links">
+                    <a href="mailto:adrian.abellaacosta@gmail.com">Email</a>
+                    <a href="https://github.com/AAA-Triple-AAA">GitHub</a>
+                    <a href="https://www.linkedin.com/in/adrian-e-abella">
+                        LinkedIn
+                    </a>
+                </div>
+            </main>
+
+            <div class="elbow bottom" aria-hidden="true"></div>
+            <div class="bar bottom" aria-hidden="true">
+                <div class="seg f3">SUBSPACE LINKS ONLINE</div>
+                <div class="seg f2">7-1</div>
+                <div class="seg f1">© 2026 A.A.A.</div>
+                <div class="seg cap"></div>
+            </div>
+        </div>
+    </body>
+</html>
